@@ -4,7 +4,7 @@
 
 import { existsSync } from "node:fs";
 import { cp, mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
-import { dirname, join, relative, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 
 const kit = resolve(import.meta.dirname, "..");
 const args = process.argv.slice(2);
@@ -16,6 +16,20 @@ if (!target) {
   process.exit(1);
 }
 const dest = resolve(target);
+const kitFromDest = relative(dest, kit);
+if (dest === kit) {
+  console.error("That is the kit itself. Pass the path of your Next.js project, for example: node tools/install.mjs ../my-site");
+  process.exit(1);
+}
+if (!kitFromDest.startsWith("..") && !isAbsolute(kitFromDest)) {
+  // A clone inside the project becomes a nested Git repo and is scanned by Tailwind and ESLint.
+  console.error(
+    `The kit is inside your project (${kitFromDest}). Move it next to the project first, then rerun:\n` +
+      `  move ${kitFromDest} ..\\figma-next-blueprint   (Windows)\n` +
+      `  mv ${kitFromDest} ../figma-next-blueprint      (macOS, Linux)`
+  );
+  process.exit(1);
+}
 if (!existsSync(join(dest, "package.json"))) {
   console.error(`${dest} has no package.json. Scaffold the app first: npx create-next-app@latest`);
   process.exit(1);

@@ -14,7 +14,7 @@ const USAGE = `Usage: node scripts/perf.mjs <url> [--form mobile,desktop] [--lig
 
 Runs Lighthouse (performance, accessibility, best practices, SEO) per form factor and prints
 Core Web Vitals, failing audits with their resources, and JavaScript weight. Measure a
-production build (npm run build && npm run start) or a preview URL, not the dev server.`;
+production build (npm run build, then npm run start) or a preview URL, not the dev server.`;
 
 const METRICS = {
   "first-contentful-paint": "FCP",
@@ -69,7 +69,7 @@ async function main() {
     createdAt: new Date().toISOString(),
     lighthouse,
     warnings: [
-      ...(devServer ? ["This looks like the Next.js dev server. Numbers are not representative; measure npm run build && npm run start."] : []),
+      ...(devServer ? ["This looks like the Next.js dev server. Numbers are not representative; measure npm run build, then npm run start."] : []),
       ...(isLocal(url) ? ["Local runs have no real network or CDN; treat field data from the live site as the final word."] : []),
     ],
     results,

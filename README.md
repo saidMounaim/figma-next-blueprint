@@ -25,16 +25,29 @@ Next.js App Router · TypeScript · Tailwind CSS v4 · shadcn/ui · Payload CMS 
 
 ## Quick start
 
+Run these in a parent folder that will hold both the kit and your site (on
+Windows, outside OneDrive, for example `C:\dev`):
+
 ```bash
+git clone https://github.com/saidMounaim/figma-next-blueprint.git
 npx create-next-app@latest my-site --ts --tailwind --app --eslint
-cd my-site && npx shadcn@latest init
-npm i -D playwright axe-core && npx playwright install chromium
-node path/to/figma-next-blueprint/tools/install.mjs .
+cd my-site
+npx shadcn@latest init
+npm i -D playwright axe-core
+npx playwright install chromium
+node ../figma-next-blueprint/tools/install.mjs .
 ```
 
-Add `FIGMA_TOKEN=figd_your_token_here` to `.env` in your editor (shell redirects
-can save it in the wrong encoding on Windows). Then open `my-site` in Claude
-Code (or Codex) and run `/onboard`, then
+```text
+C:\dev\
+├── figma-next-blueprint\   the kit: clone once, reuse for every project
+└── my-site\                your site: the installer copies the kit files here
+```
+
+Never clone the kit inside your site; the installer refuses that layout. Add
+`FIGMA_TOKEN=figd_your_token_here` to `my-site\.env` in your editor (shell
+redirects can save it in the wrong encoding on Windows). Then open `my-site` in
+Claude Code (or Codex) and run `/onboard`, then
 `/figma <figma-url>`. The full walkthrough is in [Part 1](#part-1---set-up-a-new-project).
 
 ## Contents
@@ -163,14 +176,25 @@ npx shadcn@latest init
 
 ### 2. Copy the workflow files into the app
 
-From a clone of this repository:
+Clone the kit **next to** your site, not inside it, then run the installer from
+the site folder:
 
 ```bash
+cd ..
 git clone https://github.com/saidMounaim/figma-next-blueprint.git
-node figma-next-blueprint/tools/install.mjs path/to/my-site
+cd my-site
+node ../figma-next-blueprint/tools/install.mjs .
 ```
 
-The installer copies `AGENTS.md`, `CLAUDE.md`, `.claude/`, `.agents/`,
+```text
+parent-folder/
+├── figma-next-blueprint/   the kit (keep it to update projects later)
+└── my-site/                your site
+```
+
+A kit cloned inside the site would become a nested Git repository and be
+scanned by Tailwind and ESLint, so the installer stops and tells you to move
+it. The installer copies `AGENTS.md`, `CLAUDE.md`, `.claude/`, `.agents/`,
 `blueprint/`, and `scripts/`, and refuses to overwrite anything. Use
 `--claude-only` or `--agents-only` to install one adapter. Recent
 `create-next-app` versions write an `AGENTS.md` that holds only a Next.js
@@ -240,7 +264,8 @@ For a bug or small change outside the plan, use `/fix "<what is wrong>"`, then
 ## Part 4 - Launch
 
 ```text
-npm run build && npm run start
+npm run build
+npm run start
 /seo http://localhost:3000 --all
 /a11y http://localhost:3000
 /perf http://localhost:3000
@@ -394,12 +419,14 @@ the template files you want.
 | `check` says `/v1/me` returned 403 | The token lacks `current_user:read`; file commands may still work |
 | Variables API unavailable | Needs a Figma Enterprise plan; `/figma` falls back to styles and node values and says so |
 | `Not a Figma file URL` | Use a `figma.com/design/...`, `file/`, `proto/`, or `board/` link |
-| `Playwright is not installed` | `npm i -D playwright && npx playwright install chromium` |
+| `Playwright is not installed` | `npm i -D playwright`, then `npx playwright install chromium` |
 | `... is not reachable` | Start the app (`npm run dev`, or `npm run start` after a build) |
 | Pixel-check says stale | Code changed after the last pass; run `/pixel-check` again |
 | A token utility does nothing | Run `node scripts/tokens-to-css.mjs --check`; never edit the generated block by hand |
 | `color.primary collides with a shadcn variable` | Name Figma colors by role (`brand`) and map them in `tokens.json` `shadcn` |
 | Skills not found | Open the AI tool in the app root, where `.claude/` or `.agents/` lives |
+| `The kit is inside your project` | Move the cloned `figma-next-blueprint` folder next to your site, then rerun the installer |
+| A `figma-next-blueprint/` folder inside your site | The kit was cloned in the wrong place; move it to the parent folder (the installed files already in your site stay) |
 | Something else looks wrong | Run `/doctor` for a health check and repair order |
 
 ## Maintaining the kit

@@ -11,7 +11,7 @@ export function loadPlaywright() {
     return projectRequire("playwright");
   } catch {
     throw new Error(
-      "Playwright is not installed in this project. Run: npm i -D playwright && npx playwright install chromium"
+      "Playwright is not installed in this project. Run: npm i -D playwright, then npx playwright install chromium"
     );
   }
 }
