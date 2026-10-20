@@ -1,0 +1,2 @@
+# Skills, docs, and scripts are compared byte for byte by tools/check.mjs; keep LF everywhere.
+* text=auto eol=lf

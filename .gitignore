@@ -1,0 +1,16 @@
+# Secrets
+.env*
+
+# Generated workflow state
+blueprint/.state/run.json
+blueprint/.state/figma/
+blueprint/.state/backups/
+blueprint/.state/staging/
+blueprint/reports/*
+!blueprint/reports/README.md
+
+# Dependencies and OS files
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
