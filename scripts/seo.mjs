@@ -2,6 +2,8 @@
 // On-page SEO checker for figma-next-blueprint sites. No dependencies (Node 22+).
 // Read-only: it only sends GET and HEAD requests to the site you name.
 
+import { parseFlags } from "./lib/report.mjs";
+
 const USAGE = `Usage: node scripts/seo.mjs <command> <url> [options]
 
 Commands:
@@ -24,15 +26,9 @@ main().catch((error) => {
 });
 
 async function main() {
-  const args = process.argv.slice(2);
-  const command = args.shift();
-  const flags = { links: false, limit: 50 };
-  const urls = [];
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === "--links") flags.links = true;
-    else if (args[i] === "--limit") flags.limit = Number(args[++i]);
-    else urls.push(args[i]);
-  }
+  const [command, ...rest] = process.argv.slice(2);
+  const { positional: urls, options } = parseFlags(rest, ["links"]);
+  const flags = { links: Boolean(options.links), limit: Number(options.limit ?? 50) };
   if (!command || !urls.length) {
     console.log(USAGE);
     process.exit(command ? 1 : 0);

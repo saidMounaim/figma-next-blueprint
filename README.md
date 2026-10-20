@@ -23,6 +23,20 @@ Next.js App Router · TypeScript · Tailwind CSS v4 · shadcn/ui · Payload CMS 
 
 ---
 
+## Quick start
+
+```bash
+npx create-next-app@latest my-site --ts --tailwind --app --eslint
+cd my-site && npx shadcn@latest init
+npm i -D playwright axe-core && npx playwright install chromium
+node path/to/figma-next-blueprint/tools/install.mjs .
+```
+
+Add `FIGMA_TOKEN=figd_your_token_here` to `.env` in your editor (shell redirects
+can save it in the wrong encoding on Windows). Then open `my-site` in Claude
+Code (or Codex) and run `/onboard`, then
+`/figma <figma-url>`. The full walkthrough is in [Part 1](#part-1---set-up-a-new-project).
+
 ## Contents
 
 - [Why](#why)
@@ -37,7 +51,9 @@ Next.js App Router · TypeScript · Tailwind CSS v4 · shadcn/ui · Payload CMS 
 - [Site structure](#site-structure)
 - [Configuration](#configuration)
 - [Updating an existing project](#updating-an-existing-project)
+- [Tested with](#tested-with)
 - [Troubleshooting](#troubleshooting)
+- [Maintaining the kit](#maintaining-the-kit)
 - [Credits and license](#credits-and-license)
 
 ## Why
@@ -99,7 +115,9 @@ Every design value comes from `blueprint/design/tokens.json`, which
 `scripts/tokens-to-css.mjs` turns into a generated `@theme` block in
 `app/globals.css`. shadcn's variables (`--primary`, `--border`, `--radius`, ...)
 are mapped onto the same tokens, so shadcn components never show their default
-look.
+look. The block also tells Tailwind to skip the workflow files (`blueprint/`,
+`.claude/`, `.agents/`, `scripts/`), so example class names in the docs never
+reach your CSS.
 
 ## What's in this repository
 
@@ -358,6 +376,15 @@ Do not overwrite `blueprint/`: it holds your plans, coding standards, design
 map, tokens, and history. Compare it with the new version and copy over only
 the template files you want.
 
+## Tested with
+
+| Area | Verified |
+| --- | --- |
+| Scaffold | `create-next-app` 16.4 (Next.js 16.4, React 19.3) on Windows 11 with Node 25 (22+ required) |
+| Styling | Tailwind CSS 4.3: every token utility, `@theme static`, responsive token overrides, shadcn `init` variable mapping |
+| Scripts | `pixel-check` against a mocked Figma API (fails exactly the injected differences, overlays and diffs written, staleness fingerprint), `seo` site, check, and crawl, `a11y` with the keyboard pass, `perf` with Lighthouse 12.8.2, SVG icon export, snapshot diff |
+| Pending | A full run against a real Figma file (`/figma` through `/complete`), and the Payload content source |
+
 ## Troubleshooting
 
 | Problem | Fix |
@@ -374,6 +401,19 @@ the template files you want.
 | `color.primary collides with a shadcn variable` | Name Figma colors by role (`brand`) and map them in `tokens.json` `shadcn` |
 | Skills not found | Open the AI tool in the app root, where `.claude/` or `.agents/` lives |
 | Something else looks wrong | Run `/doctor` for a health check and repair order |
+
+## Maintaining the kit
+
+Edit skills in `.claude/skills/` only, then regenerate and validate:
+
+```bash
+node tools/sync-adapters.mjs   # rebuild .agents/skills from .claude/skills
+node tools/check.mjs           # frontmatter, adapter sync, links, writing rules, script syntax
+```
+
+The workflow skills stay close to AI Blueprint so upstream updates merge with
+small diffs: Figma and Next.js rules are short insertions, and longer ones live
+in `reference/` files (for example `audit/reference/nextjs-lens.md`).
 
 ## Credits and license
 

@@ -2,7 +2,7 @@
 // Figma extraction CLI for figma-next-blueprint. No dependencies (Node 22+).
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 import {
   CACHE_DIR,
   FigmaError,
@@ -20,6 +20,7 @@ import {
   round,
   simplify,
 } from "./lib/figma.mjs";
+import { parseFlags, writeJson } from "./lib/report.mjs";
 
 const USAGE = `Usage: node scripts/figma-extract.mjs <command> [args] [options]
 
@@ -50,21 +51,9 @@ main().catch((error) => {
   process.exit(error instanceof FigmaError ? 2 : 1);
 });
 
-function parseArgs(argv) {
-  const positional = [];
-  const options = {};
-  for (let i = 0; i < argv.length; i++) {
-    const arg = argv[i];
-    if (!arg.startsWith("--")) positional.push(arg);
-    else if (["--component", "--no-cache"].includes(arg)) options[arg.slice(2)] = true;
-    else options[arg.slice(2)] = argv[++i];
-  }
-  return { positional, options };
-}
-
 async function main() {
   const [command, ...rest] = process.argv.slice(2);
-  const { positional, options } = parseArgs(rest);
+  const { positional, options } = parseFlags(rest, ["component", "no-cache"]);
   if (options["no-cache"]) disableCache();
 
   switch (command) {
@@ -96,11 +85,6 @@ async function main() {
 
 function print(value) {
   console.log(JSON.stringify(value, null, 2));
-}
-
-async function writeJson(file, value) {
-  await mkdir(resolve(file, ".."), { recursive: true });
-  await writeFile(file, JSON.stringify(value, null, 1) + "\n");
 }
 
 async function check() {
