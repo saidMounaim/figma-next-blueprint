@@ -1,7 +1,7 @@
 # Browser test setup
 
 This is an explicit optional setup command. It creates a project-owned browser
-test path that later Feature, Implement, Check, and Continuous runs can reuse. It
+test path that later Feature, Implement, and Check runs can reuse. It
 does not replace live browser inspection, install during another workflow
 command, or make browser testing mandatory for every Blueprint project.
 
@@ -115,8 +115,7 @@ Once `AGENTS.md` declares `Browser tests: <command>`:
   the current step.
 - Check runs the documented command as repeatable evidence, then directly
   observes any done-when the suite does not prove.
-- Continuous needs no separate browser mode. Its configured Check gate uses the
-  same command.
+
 
 The harness supplements direct evidence. A green browser suite does not prove
 visual fidelity, authenticated real-profile behavior, browser chrome, or every

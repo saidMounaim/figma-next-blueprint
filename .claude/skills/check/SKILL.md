@@ -24,8 +24,7 @@ disable-model-invocation: true
 
 Load only the selected reference. Do not read both references preemptively.
 Guide generation never satisfies a verification gate. The existing
-`qualityGates.regular.tryGuide` and `qualityGates.continuous.tryGuide` keys now
-select `/check guide`. `manual`, `always`, and `when-user-facing` retain their
+`qualityGates.regular.tryGuide` key selects `/check guide`. `manual`, `always`, and `when-user-facing` retain their
 existing behavior. `when-testable` asks guide mode to classify whether the work
 has a safe, meaningful observation path and generate a compact `## Try it now`
 section only when one exists. The separate `check` gates continue to select

@@ -97,7 +97,7 @@ when you just want something done.
    duplication, dead code, missing tests for logic, standards drift, and
    maintainability risks. Run `/audit independent current` when a selected fresh
    reviewer should inspect an approved checkpoint and leave a staleness-checked
-   receipt. Regular and Continuous independent review default to
+   receipt. Independent review defaults to
    `when-sensitive`, so sensitive or unusually broad work selects this gate
    automatically while ordinary small features do not. A `manual` gate policy
    disables automatic selection, but the explicit command remains available.
@@ -168,26 +168,16 @@ passing implementation step. It may create checkpoint commits on the feature or
 fix branch after passing steps. It stops before `/complete`, merge, push, deploy,
 publish, destructive actions, or hiding failing checks.
 
-Continuous Mode also exists only as an explicit opt-in command: `/continuous`
-or `$continuous`. Do not suggest it as the default next action. Its explicit
-invocation authorizes the local per-feature lifecycle defined by that skill:
-configured checkpoint commits, one local default-branch commit per completed
-feature, local squash merges, branch deletion, and repetition through the
-configured limit or end of the build plan. It never authorizes push, deploy,
-publish, send, remote changes, destructive actions, finding waivers, or product
-decisions.
 
 ## Branching
 
 A new branch for every feature, fix, or rollback, using the prefixes in
-`blueprint/config.json`. Ask to delete the branch once merged. Continuous Mode's
-explicit invocation already authorizes deletion of each locally merged feature
-branch.
+`blueprint/config.json`. Ask to delete the branch once merged.
 
 ## Commits
 
 - Ask before committing, except for checkpoint and feature-lifecycle commits
-  explicitly authorized by `/autopilot` or `/continuous`
+  explicitly authorized by `/autopilot`
 - The initial Overview baseline also requires explicit approval and uses
   `chore: establish Blueprint project baseline`
 - Use conventional commit messages (feat:, fix:, chore:, etc.)

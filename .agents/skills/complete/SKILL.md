@@ -31,8 +31,7 @@ If the file exists but is invalid, stop and point the user to `/doctor`.
 Configuration can strengthen or shape the completion gates, but it never grants
 permission to commit, merge, push, deploy, publish, or take destructive action.
 Record `git.landing`; a missing value defaults to `local-merge`. The
-`pull-request` value applies only to this skill. Continuous Mode remains a
-local-only serial workflow and never pushes or opens pull requests.
+`pull-request` value applies only to this skill.
 
 Before requiring a real active spec, check for pending completion using
 `reference/completion-recovery.md`. A matching archive may mean archival was
@@ -152,7 +151,7 @@ Before logging or committing, run a short safety pass and report blockers only:
   waiver in the current chat for named sections and widths, with their reason,
   recorded under `## Pixel-check waiver` in the spec before any independent
   review request (the spec hash changes). Never waive it for them;
-  configuration, Autopilot, and Continuous Mode never supply a waiver.
+  configuration and Autopilot never supply a waiver.
 - any audit or try guide required by `qualityGates.regular` ran before completion
 - a selected independent-review gate has a `passed` receipt whose target equals
   `HEAD`, whose base ref still produces the recorded merge base, whose exact

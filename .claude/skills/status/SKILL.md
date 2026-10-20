@@ -39,9 +39,9 @@ state.
    missing file is healthy and means defaults. Invalid JSON, schema versions,
    keys, values, non-file paths, or symbolic links are a warning and make
    `/doctor` the next action before any mutating workflow command. Report the
-   effective regular and Continuous audit, independent-review, check, and
+   effective regular audit, independent-review, check, and
    try-guide policies, plus `review.independentExecution`. Explain that
-   independent review defaults to `when-sensitive` for both workflows and
+   independent review defaults to `when-sensitive` and
    execution defaults to `automatic`, which uses an isolated reviewer only when
    the current adapter supports it. Audit and check default to `manual`; try
    guide defaults to `when-testable`.
@@ -109,8 +109,7 @@ A short, scannable summary, not a wall of text. Aim for something like:
     Status: Building feature 4 - PDF export
     Config: Project settings.
     Review execution: automatic.
-    Gates: regular audit manual, independent review when-sensitive, check when-behavioral, try guide when-testable;
-           Continuous audit always, independent review manual, check always, try guide when-user-facing.
+    Gates: audit manual, independent review when-sensitive, check when-behavioral, try guide when-testable.
     Plans: Overview current. Build plan 3 of 9 complete.
     Current work: Step 2 of 3 done. Next step: Download PDF button.
     Activity: /autopilot ready, 3/3 build steps, reviewed boundary.

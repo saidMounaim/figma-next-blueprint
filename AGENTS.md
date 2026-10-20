@@ -96,9 +96,8 @@ pixel-check, or accept a finding. Those approval and safety boundaries are not
 configurable.
 
 `qualityGates.regular` controls automatic audit, independent-review, check, and
-try-guide behavior for the normal workflow and Autopilot.
-`qualityGates.continuous` controls the same per-feature gates for Continuous
-Mode. Independent review defaults to `when-sensitive`, audit and check default
+try-guide behavior for the normal workflow and Autopilot. Independent review
+defaults to `when-sensitive`, audit and check default
 to `manual`, and try guide defaults to `when-testable`. The other conditional
 modes are `when-sensitive` for audit, `when-behavioral` for check, and
 `when-user-facing` for try guides.
@@ -232,10 +231,6 @@ Optional explicit-only skill: `autopilot` combines `feature` or `fix` with
 regular quality gates. It stops before `/complete`, merge, push, deploy, or
 destructive actions.
 
-Optional explicit-only skill: `continuous` repeats the complete local feature
-lifecycle through the configured limit or end of the build plan. It never
-pushes, deploys, publishes, sends, waives a pixel-check, or performs destructive
-actions.
 
 ## Dashboard activity
 
@@ -246,7 +241,7 @@ Git, and never part of a feature commit.
 Commands with meaningful progress or a durable handoff should write it when the
 state directory exists: `onboard`, `discovery`, `overview`, `figma`, `next-app`,
 `feature`, `fix`, `rollback`, `implement`, `debug`, `check`, `audit`, `tests`,
-`ci`, `autopilot`, `continuous`, `complete`, and `release`. Short orientation,
+`ci`, `autopilot`, `complete`, and `release`. Short orientation,
 recipe, and report commands (`explore`, `brief`, `status`, `doctor`, `section`,
 `collection`, `assets`, `design-sync`, `pixel-check`, `seo`, `a11y`, `perf`, and
 `check guide`) do not write activity state.

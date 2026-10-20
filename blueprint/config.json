@@ -23,17 +23,6 @@
       "independentReview": "when-sensitive",
       "check": "manual",
       "tryGuide": "when-testable"
-    },
-    "continuous": {
-      "audit": "manual",
-      "independentReview": "when-sensitive",
-      "check": "manual",
-      "tryGuide": "when-testable"
     }
-  },
-  "continuous": {
-    "maxFeatures": null,
-    "maxRepairAttempts": 2,
-    "finalIntegrationAudit": false
   }
 }

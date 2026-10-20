@@ -49,7 +49,7 @@ execution` so both execution fields remain absent.
 **Requested model:** <exact model or user-selected runtime default>
 **Requested execution:** <manual or automatic>
 **Requested at:** <ISO-8601 timestamp>
-**Workflow:** <regular or continuous>
+**Workflow:** regular
 **Check required:** <yes or no>
 
 ## Handoff

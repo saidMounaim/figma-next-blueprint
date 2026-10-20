@@ -225,9 +225,8 @@ or value before changing other setup files.
 
 Keep project configuration deterministic. Ask before changing preferences and
 edit only values the user actually chose, such as branch prefixes, UI evidence,
-logic-test strictness, regular or Continuous quality gates, review execution, or
-Continuous Mode limits. Independent review defaults to `when-sensitive` for
-regular and Continuous work, and its execution defaults to `automatic`. Audit,
+logic-test strictness, quality gates, or review execution. Independent review
+defaults to `when-sensitive`, and its execution defaults to `automatic`. Audit,
 and check default to `manual`. Try guide defaults to `when-testable`, which adds
 a compact Try It Now demonstration only when a safe meaningful observation
 exists. Preserve these defaults unless the user chooses different policies. A
@@ -269,8 +268,7 @@ instead of guessing, such as:
 - whether branches should use a different naming pattern
 - whether `/check` should require browser evidence for UI work
 - whether audit, independent review, or check should stay manual, run only for
-  their documented conditional case, or run for every regular or Continuous
-  work item
+  their documented conditional case, or run for every work item
 - whether try guides should use the recommended `when-testable` policy, remain
   manual, use the narrower `when-user-facing` policy, or run for every item
 - whether a selected independent review should use the default automatic

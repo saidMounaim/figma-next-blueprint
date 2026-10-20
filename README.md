@@ -125,7 +125,7 @@ reach your CSS.
 | --- | --- | --- |
 | `AGENTS.md` | Yes | Project rules and workflow for every AI tool |
 | `CLAUDE.md` | Yes (Claude Code) | Claude Code entry point, imports `AGENTS.md` |
-| `.claude/skills/` | Yes (Claude Code) | The 30 slash-command skills |
+| `.claude/skills/` | Yes (Claude Code) | The 29 slash-command skills |
 | `.agents/skills/` | Yes (Codex, Copilot, Antigravity) | The same skills for other agents |
 | `blueprint/` | Yes | Plans, coding standards, design map, specs, reports, history |
 | `scripts/` | Yes | Figma, tokens, pixel, SEO, accessibility, and performance helpers |
@@ -288,7 +288,7 @@ All skills are typed in your AI chat, not in a terminal. Codex uses `$name`.
 | `/doctor` | Workflow health check |
 | `/tests`, `/ci` | Set up unit or browser tests, and GitHub checks |
 | `/release` | Deployment readiness; never deploys without your yes |
-| `/autopilot`, `/continuous` | Explicit opt-in automation, never pushes or deploys |
+| `/autopilot` | Explicit opt-in: spec and build one feature unattended, then stop before `/complete` |
 
 ### Helper scripts
 

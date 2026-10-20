@@ -363,8 +363,7 @@ Stop immediately and report instead of continuing when Autopilot would need to:
 - One Autopilot run handles one feature or one fix.
 - Autopilot creates checkpoint commits on the feature or fix branch after
   passing steps only when project config enables them.
-- Autopilot uses `qualityGates.regular`. The Continuous gate policies and the
-  `continuous` section do not change an Autopilot run.
+- Autopilot uses `qualityGates.regular`.
 - When its audit gate runs, Autopilot audits the active feature and affected
   code, not the entire project.
 - A P0 or P1 finding left `open` or `fixed` in `blueprint/context/findings.md`

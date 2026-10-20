@@ -1,7 +1,7 @@
 # Completion recovery
 
-Use this contract before Complete requires a live spec, and before Status or
-Continuous selects new work. Archive and Git evidence determine the phase.
+Use this contract before Complete requires a live spec, and before Status
+selects new work. Archive and Git evidence determine the phase.
 `run.json`, modification times, archive titles, and commit subjects prove none of
 these transitions. Recovery grants no commit, merge, push, or cleanup approval.
 
@@ -92,7 +92,7 @@ to that item is a recovery candidate. An explicit request to resume completion
 also requires full proof. Status reports candidates and routes them to Complete;
 it does not create a temporary index or claim the phase has passed full proof.
 
-For ordinary Status or a new Continuous invocation, a clean local default branch
+For ordinary Status, a clean local default branch
 with consistent live state, no matching local work ref, and no pending completion
 evidence is settled history. An archive at its tip alone does not trigger recovery.
 Do not require historical `head`/`sourceTree` objects for that orientation; clean
