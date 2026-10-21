@@ -22,7 +22,7 @@ import {
 } from "./lib/figma.mjs";
 import { parseFlags, writeJson } from "./lib/report.mjs";
 
-const USAGE = `Usage: node scripts/figma-extract.mjs <command> [args] [options]
+const USAGE = `Usage: node blueprint/scripts/figma-extract.mjs <command> [args] [options]
 
 Commands:
   check                          verify the token (reads only the token owner)

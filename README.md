@@ -25,29 +25,25 @@ Next.js App Router · TypeScript · Tailwind CSS v4 · shadcn/ui · Payload CMS 
 
 ## Quick start
 
-Run these in a parent folder that will hold both the kit and your site (on
-Windows, outside OneDrive, for example `C:\dev`):
+On Windows, work outside OneDrive (for example in `C:\dev`).
 
 ```bash
-git clone https://github.com/saidMounaim/figma-next-blueprint.git
 npx create-next-app@latest my-site --ts --tailwind --app --eslint
 cd my-site
 npx shadcn@latest init
 npm i -D playwright axe-core
 npx playwright install chromium
-node ../figma-next-blueprint/tools/install.mjs .
+
+git remote add blueprint https://github.com/saidMounaim/figma-next-blueprint.git
+git fetch blueprint
+git checkout blueprint/main -- AGENTS.md CLAUDE.md .claude .agents blueprint
 ```
 
-```text
-C:\dev\
-├── figma-next-blueprint\   the kit: clone once, reuse for every project
-└── my-site\                your site: the installer copies the kit files here
-```
-
-Never clone the kit inside your site; the installer refuses that layout. Add
-`FIGMA_TOKEN=figd_your_token_here` to `my-site\.env` in your editor (shell
-redirects can save it in the wrong encoding on Windows). Then open `my-site` in
-Claude Code (or Codex) and run `/onboard`, then
+The last three commands put the kit straight into the root of your site, next to
+`app/` and `package.json`; nothing is nested. Add
+`FIGMA_TOKEN=figd_your_token_here` to `.env` in your editor (shell redirects can
+save it in the wrong encoding on Windows). Then open `my-site` in Claude Code
+(or Codex) and run `/onboard`, then
 `/figma <figma-url>`. The full walkthrough is in [Part 1](#part-1---set-up-a-new-project).
 
 ## Contents
@@ -125,25 +121,25 @@ One Figma section becomes one component, and its name is used everywhere:
 | Figma link | `"hero"` in `blueprint/design/map.json`, with node IDs per frame width |
 
 Every design value comes from `blueprint/design/tokens.json`, which
-`scripts/tokens-to-css.mjs` turns into a generated `@theme` block in
+`blueprint/scripts/tokens-to-css.mjs` turns into a generated `@theme` block in
 `app/globals.css`. shadcn's variables (`--primary`, `--border`, `--radius`, ...)
 are mapped onto the same tokens, so shadcn components never show their default
 look. The block also tells Tailwind to skip the workflow files (`blueprint/`,
-`.claude/`, `.agents/`, `scripts/`), so example class names in the docs never
-reach your CSS.
+`.claude/`, `.agents/`), so example class names in the docs never reach your
+CSS.
 
 ## What's in this repository
 
-| Path | Copy into your app? | Contents |
-| --- | --- | --- |
-| `AGENTS.md` | Yes | Project rules and workflow for every AI tool |
-| `CLAUDE.md` | Yes (Claude Code) | Claude Code entry point, imports `AGENTS.md` |
-| `.claude/skills/` | Yes (Claude Code) | The 29 slash-command skills |
-| `.agents/skills/` | Yes (Codex, Copilot, Antigravity) | The same skills for other agents |
-| `blueprint/` | Yes | Plans, coding standards, design map, specs, reports, history |
-| `scripts/` | Yes | Figma, tokens, pixel, SEO, accessibility, and performance helpers |
-| `tools/` | No | Maintainer tools: install, adapter sync, validation |
-| `README.md`, `LICENSE` | No | This file and the license |
+Everything except `README.md` and `LICENSE` goes into the root of your site:
+
+| Path | Contents |
+| --- | --- |
+| `AGENTS.md` | Project rules and workflow for every AI tool |
+| `CLAUDE.md` | Claude Code entry point, imports `AGENTS.md` |
+| `.claude/skills/` | The 29 skills for Claude Code |
+| `.agents/skills/` | The same skills for Codex, GitHub Copilot, and Antigravity |
+| `blueprint/` | Plans, coding standards, design map, specs, reports, history |
+| `blueprint/scripts/` | The helpers the skills run: Figma, tokens, pixel, SEO, accessibility, performance |
 
 ## Requirements
 
@@ -174,33 +170,25 @@ git init   # if the scaffolder did not
 npx shadcn@latest init
 ```
 
-### 2. Copy the workflow files into the app
+### 2. Add the kit to the root of the app
 
-Clone the kit **next to** your site, not inside it, then run the installer from
-the site folder:
+From the `my-site` folder:
 
 ```bash
-cd ..
-git clone https://github.com/saidMounaim/figma-next-blueprint.git
-cd my-site
-node ../figma-next-blueprint/tools/install.mjs .
+git remote add blueprint https://github.com/saidMounaim/figma-next-blueprint.git
+git fetch blueprint
+git checkout blueprint/main -- AGENTS.md CLAUDE.md .claude .agents blueprint
 ```
 
-```text
-parent-folder/
-├── figma-next-blueprint/   the kit (keep it to update projects later)
-└── my-site/                your site
-```
+This copies the kit's files into the root of your site, next to `app/`. Do not
+`git clone` the kit inside your site: that creates a nested repository that
+Tailwind and ESLint would scan.
 
-A kit cloned inside the site would become a nested Git repository and be
-scanned by Tailwind and ESLint, so the installer stops and tells you to move
-it. The installer copies `AGENTS.md`, `CLAUDE.md`, `.claude/`, `.agents/`,
-`blueprint/`, and `scripts/`, and refuses to overwrite anything. Use
-`--claude-only` or `--agents-only` to install one adapter. Recent
-`create-next-app` versions write an `AGENTS.md` that holds only a Next.js
-managed block; the installer keeps that block at the end of the new
-`AGENTS.md`. Any other existing file stops the install so you can move it aside
-or pass `--skip <path>` and merge by hand.
+- The kit's `AGENTS.md` replaces the one `create-next-app` wrote. It already
+  contains the Next.js managed block, which `next dev` keeps up to date.
+- Using only Claude Code? Leave `.agents` out of the last command. Using only
+  Codex or Copilot? Leave out `CLAUDE.md` and `.claude`.
+- The `blueprint` remote stays in your project so you can update later.
 
 ### 3. Add your Figma token
 
@@ -320,14 +308,14 @@ All skills are typed in your AI chat, not in a terminal. Codex uses `$name`.
 The skills run these for you. You can run them yourself from the app root:
 
 ```bash
-node scripts/figma-extract.mjs check
-node scripts/figma-extract.mjs outline "<figma-url>" --depth 2
-node scripts/figma-extract.mjs tokens "<frame-url>" "<frame-url>"
-node scripts/tokens-to-css.mjs --check
-node scripts/pixel-check.mjs http://localhost:3000/ --section hero
-node scripts/seo.mjs crawl http://localhost:3000 --limit 50 --links
-node scripts/a11y.mjs http://localhost:3000
-node scripts/perf.mjs http://localhost:3000
+node blueprint/scripts/figma-extract.mjs check
+node blueprint/scripts/figma-extract.mjs outline "<figma-url>" --depth 2
+node blueprint/scripts/figma-extract.mjs tokens "<frame-url>" "<frame-url>"
+node blueprint/scripts/tokens-to-css.mjs --check
+node blueprint/scripts/pixel-check.mjs http://localhost:3000/ --section hero
+node blueprint/scripts/seo.mjs crawl http://localhost:3000 --limit 50 --links
+node blueprint/scripts/a11y.mjs http://localhost:3000
+node blueprint/scripts/perf.mjs http://localhost:3000
 ```
 
 | Script | What it does |
@@ -393,13 +381,19 @@ deploy without your approval.
 
 ## Updating an existing project
 
-Copy `.claude/`, `.agents/`, `scripts/`, `AGENTS.md`, and `CLAUDE.md` from a
-newer version over the ones in your app (keep your edits to `AGENTS.md`
-Commands), then run `/doctor`.
+From the root of your site:
 
-Do not overwrite `blueprint/`: it holds your plans, coding standards, design
-map, tokens, and history. Compare it with the new version and copy over only
-the template files you want.
+```bash
+git fetch blueprint
+git checkout blueprint/main -- .claude .agents blueprint/scripts
+git diff blueprint/main -- AGENTS.md CLAUDE.md
+```
+
+Then run `/doctor`. The second command updates the skills and helper scripts.
+Never check out all of `blueprint/` again: it holds your plans, coding
+standards, design map, tokens, and history. `AGENTS.md` and `CLAUDE.md` hold
+your project edits (for example the Commands section), so the third command
+only shows what changed for you to merge by hand.
 
 ## Tested with
 
@@ -422,20 +416,22 @@ the template files you want.
 | `Playwright is not installed` | `npm i -D playwright`, then `npx playwright install chromium` |
 | `... is not reachable` | Start the app (`npm run dev`, or `npm run start` after a build) |
 | Pixel-check says stale | Code changed after the last pass; run `/pixel-check` again |
-| A token utility does nothing | Run `node scripts/tokens-to-css.mjs --check`; never edit the generated block by hand |
+| A token utility does nothing | Run `node blueprint/scripts/tokens-to-css.mjs --check`; never edit the generated block by hand |
 | `color.primary collides with a shadcn variable` | Name Figma colors by role (`brand`) and map them in `tokens.json` `shadcn` |
 | Skills not found | Open the AI tool in the app root, where `.claude/` or `.agents/` lives |
-| `The kit is inside your project` | Move the cloned `figma-next-blueprint` folder next to your site, then rerun the installer |
-| A `figma-next-blueprint/` folder inside your site | The kit was cloned in the wrong place; move it to the parent folder (the installed files already in your site stay) |
+| A `figma-next-blueprint/` folder inside your site | The kit was cloned instead of checked out; delete that folder and use the `git checkout blueprint/main -- ...` command from Part 1 |
+| `fatal: not a git repository` during setup | Run `git init` in the site first (create-next-app usually does this) |
 | Something else looks wrong | Run `/doctor` for a health check and repair order |
 
 ## Maintaining the kit
 
-Edit skills in `.claude/skills/` only, then regenerate and validate:
+Edit skills in `.claude/skills/` only, then rebuild `.agents/skills/` from them.
+The two trees differ only by the Claude Code line
+`disable-model-invocation: true`:
 
 ```bash
-node tools/sync-adapters.mjs   # rebuild .agents/skills from .claude/skills
-node tools/check.mjs           # frontmatter, adapter sync, links, writing rules, script syntax
+rm -rf .agents/skills && cp -r .claude/skills .agents/skills
+find .agents/skills -name SKILL.md -exec sed -i '/^disable-model-invocation: true$/d' {} +
 ```
 
 The workflow skills stay close to AI Blueprint so upstream updates merge with

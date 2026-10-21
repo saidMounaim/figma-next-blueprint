@@ -23,9 +23,9 @@ For a launch check, run it against a production build (`npm run build` then
 ## Run
 
 ```text
-node scripts/seo.mjs site <origin>
-node scripts/seo.mjs check <url> --links          # one page
-node scripts/seo.mjs crawl <url> --limit 50 --links   # --all
+node blueprint/scripts/seo.mjs site <origin>
+node blueprint/scripts/seo.mjs check <url> --links          # one page
+node blueprint/scripts/seo.mjs crawl <url> --limit 50 --links   # --all
 ```
 
 The script sends only GET and HEAD requests with a crawler user agent, so

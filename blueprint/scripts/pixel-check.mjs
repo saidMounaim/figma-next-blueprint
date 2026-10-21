@@ -10,8 +10,8 @@ import { launch, openPage } from "./lib/browser.mjs";
 import { REPORTS, isLocal, mdTable, parseFlags, slugFromUrl, sourceFingerprint, stamp, writeJson } from "./lib/report.mjs";
 
 const USAGE = `Usage:
-  node scripts/pixel-check.mjs <url> [--section hero,header] [--widths 375,1440] [--map file] [--out dir]
-  node scripts/pixel-check.mjs fingerprint
+  node blueprint/scripts/pixel-check.mjs <url> [--section hero,header] [--widths 375,1440] [--map file] [--out dir]
+  node blueprint/scripts/pixel-check.mjs fingerprint
 
 Compares every mapped [data-section] and [data-el] on the page with its Figma node from
 blueprint/design/map.json at each frame width. fingerprint prints the source hash that makes

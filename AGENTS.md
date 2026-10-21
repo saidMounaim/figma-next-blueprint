@@ -20,7 +20,7 @@ pixel-perfect Next.js site, one reviewed feature at a time. It is a workflow
 layer on top of the [AI Blueprint](https://ai-blueprint.dev), not an app
 skeleton.
 
-- **Design source:** Figma URLs, read through `scripts/figma-extract.mjs`
+- **Design source:** Figma URLs, read through `blueprint/scripts/figma-extract.mjs`
   (Figma REST API with `FIGMA_TOKEN`), or the Figma Dev Mode MCP server when it
   is available in the session
 - **App:** Next.js App Router, TypeScript strict, Server Components by default
@@ -40,8 +40,8 @@ version.
 
 Scaffold the app first with `create-next-app`, then overlay these files on top.
 Never run a framework scaffolder inside a directory that already holds the
-blueprint files (`AGENTS.md`, `CLAUDE.md`, `.agents/`, `.claude/`, `blueprint/`,
-`scripts/`); it fails because the directory isn't empty.
+blueprint files (`AGENTS.md`, `CLAUDE.md`, `.agents/`, `.claude/`, `blueprint/`);
+it fails because the directory isn't empty.
 
 ## Proportional engineering
 
@@ -287,7 +287,7 @@ Verify.
 - **Figma personal access token** in `.env` at the project root as
   `FIGMA_TOKEN=...` (`.env*` is git-ignored by create-next-app). Scopes: file
   content read, plus file variables read when the plan includes Figma Variables
-  (Enterprise). Check it with `node scripts/figma-extract.mjs check`. Never paste
+  (Enterprise). Check it with `node blueprint/scripts/figma-extract.mjs check`. Never paste
   the token in chat. The Figma Dev Mode MCP server is optional and used for
   reading designs when present; the scripts always need the token.
 - **Playwright** (`npm i -D playwright` then `npx playwright install chromium`)
@@ -306,13 +306,23 @@ For a standard Next.js project. Change or remove if you're using something else.
 - Production server: `npm run start`
 - Lint: `npm run lint`
 - Typecheck: `npx tsc --noEmit`
-- Figma: `node scripts/figma-extract.mjs <command>`
-- Tokens to CSS: `node scripts/tokens-to-css.mjs`
-- Pixel check: `node scripts/pixel-check.mjs <url>`
-- SEO: `node scripts/seo.mjs check <url>` or `node scripts/seo.mjs crawl <url>`
-- Accessibility: `node scripts/a11y.mjs <url>`
-- Performance: `node scripts/perf.mjs <url>`
+- Figma: `node blueprint/scripts/figma-extract.mjs <command>`
+- Tokens to CSS: `node blueprint/scripts/tokens-to-css.mjs`
+- Pixel check: `node blueprint/scripts/pixel-check.mjs <url>`
+- SEO: `node blueprint/scripts/seo.mjs check <url>` or `node blueprint/scripts/seo.mjs crawl <url>`
+- Accessibility: `node blueprint/scripts/a11y.mjs <url>`
+- Performance: `node blueprint/scripts/perf.mjs <url>`
 
 Testing is opt-in. If this project does not already have a unit test runner, run
 `/tests` or `$tests` to add one and update this section with the real test
 commands. Browser testing is also opt-in through `/tests browser`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -141,10 +141,10 @@ Gather these, then summarize. Do not dump file contents.
    - A missing `Verify` command or GitHub workflow is informational. It means the
      optional automatic-check setup was not selected, not that the Blueprint is
      unhealthy.
-   - **Figma and Next kit.** Confirm `scripts/figma-extract.mjs`,
-     `scripts/tokens-to-css.mjs`, `scripts/pixel-check.mjs`, `scripts/seo.mjs`,
-     `scripts/a11y.mjs`, `scripts/perf.mjs`, and `scripts/lib/` exist. Run
-     `node scripts/figma-extract.mjs check`; it reads only the token owner and
+   - **Figma and Next kit.** Confirm `blueprint/scripts/figma-extract.mjs`,
+     `blueprint/scripts/tokens-to-css.mjs`, `blueprint/scripts/pixel-check.mjs`, `blueprint/scripts/seo.mjs`,
+     `blueprint/scripts/a11y.mjs`, `blueprint/scripts/perf.mjs`, and `blueprint/scripts/lib/` exist. Run
+     `node blueprint/scripts/figma-extract.mjs check`; it reads only the token owner and
      never prints the token. A missing or rejected token needs attention.
      Confirm `.env` is git-ignored (`git check-ignore -q .env`). Report whether
      `playwright` and `axe-core` are installed devDependencies and whether
@@ -248,8 +248,10 @@ steps, in order. Keep it short and practical.
 
 Choose the repair order in this priority:
 
-- Required Blueprint files missing -> copy the figma-next-blueprint files into
-  the project again (`node tools/install.mjs <project-dir>` from the kit).
+- Required Blueprint files missing -> restore them from the kit in the project
+  root: `git fetch blueprint` then
+  `git checkout blueprint/main -- <missing paths>` (add the remote first with
+  `git remote add blueprint https://github.com/saidMounaim/figma-next-blueprint.git`).
 - Invalid `blueprint/config.json` -> fix the named key or value, then rerun
   `/doctor`. Do not mutate project work while configuration is ambiguous.
 - No git repo -> initialize git before using the build loop.
@@ -268,7 +270,7 @@ Choose the repair order in this priority:
 - `blueprint/context/figma.md` still the stub before feature work -> run
   `/figma <url>`.
 - Site foundation built but the tokens block is missing from `app/globals.css`
-  -> regenerate it with `node scripts/tokens-to-css.mjs` through `/fix`.
+  -> regenerate it with `node blueprint/scripts/tokens-to-css.mjs` through `/fix`.
 - Proportional-engineering guidance missing or incomplete -> review the current
   Blueprint template's `AGENTS.md` Proportional engineering section and manually
   merge only the missing guidance into the project's `AGENTS.md`. Preserve

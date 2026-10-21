@@ -131,7 +131,7 @@ End with a single suggested next action, chosen in this order:
 - A spec is in progress and all implementation steps are checked ->
   `/pixel-check <url>` when the spec has UI work and the latest summary in
   `blueprint/reports/pixel/` is missing, failing, or stale (its `sourceHash`
-  differs from `node scripts/pixel-check.mjs fingerprint`), `/check` if
+  differs from `node blueprint/scripts/pixel-check.mjs fingerprint`), `/check` if
   proof is not recorded, `/check guide` if the user wants a manual review path,
   `/implement` when a P0 or P1 finding is still `open` (the repair is an extra
   reviewed step), `/audit` when one is `fixed` and awaiting re-review (both

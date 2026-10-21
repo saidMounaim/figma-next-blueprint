@@ -19,10 +19,10 @@ Figma URL to limit the check to one page or frame.
 ## Steps
 
 1. Preflight: `blueprint/design/snapshot.json` and `map.json` exist (otherwise
-   run `/figma` first) and `node scripts/figma-extract.mjs check` passes.
+   run `/figma` first) and `node blueprint/scripts/figma-extract.mjs check` passes.
 2. Take a fresh snapshot of the same frames, bypassing the cache:
-   `node scripts/figma-extract.mjs snapshot <frame-urls...> --out blueprint/.state/figma/snapshot-new.json --no-cache`
-3. Compare: `node scripts/figma-extract.mjs diff blueprint/design/snapshot.json blueprint/.state/figma/snapshot-new.json`
+   `node blueprint/scripts/figma-extract.mjs snapshot <frame-urls...> --out blueprint/.state/figma/snapshot-new.json --no-cache`
+3. Compare: `node blueprint/scripts/figma-extract.mjs diff blueprint/design/snapshot.json blueprint/.state/figma/snapshot-new.json`
 4. Also rerun `tokens` with `--no-cache` and compare its colors, text styles,
    spacing, radii, and shadows with `blueprint/design/tokens.json`.
 5. Map every change to code: a node inside a mapped section belongs to that

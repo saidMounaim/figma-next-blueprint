@@ -4,7 +4,7 @@
 
 import { parseFlags } from "./lib/report.mjs";
 
-const USAGE = `Usage: node scripts/seo.mjs <command> <url> [options]
+const USAGE = `Usage: node blueprint/scripts/seo.mjs <command> <url> [options]
 
 Commands:
   site   <site-url>                          robots.txt, sitemap.xml, search visibility

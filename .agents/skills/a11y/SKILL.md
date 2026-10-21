@@ -24,7 +24,7 @@ local URL that refuses connections, ask the user to start the app.
 ## Run
 
 ```text
-node scripts/a11y.mjs <url> [--widths 375,768,1440]
+node blueprint/scripts/a11y.mjs <url> [--widths 375,768,1440]
 ```
 
 The script runs axe at each width, then a keyboard pass at the smallest and

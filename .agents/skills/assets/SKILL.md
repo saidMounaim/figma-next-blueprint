@@ -37,8 +37,8 @@ Build one table and show it before writing anything:
 ## Step 2 - export
 
 ```text
-node scripts/figma-extract.mjs export <url> --ids 1:4,3:12 --names Logo,ArrowRight --format svg --component --out components/icons
-node scripts/figma-extract.mjs export <url> --ids 12:370 --names hero-team-meeting --format jpg --scale 2 --out public/images/hero
+node blueprint/scripts/figma-extract.mjs export <url> --ids 1:4,3:12 --names Logo,ArrowRight --format svg --component --out components/icons
+node blueprint/scripts/figma-extract.mjs export <url> --ids 12:370 --names hero-team-meeting --format jpg --scale 2 --out public/images/hero
 ```
 
 The `--component` export prefixes SVG ids per icon, turns single-color fills

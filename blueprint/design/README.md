@@ -10,4 +10,4 @@ side of `blueprint/context/figma.md`.
 | `snapshot.json` | `/figma`, `/design-sync` after approval | `/design-sync` |
 
 Edit `tokens.json` only through `/figma`, `/design-sync`, or an approved spec,
-then run `node scripts/tokens-to-css.mjs` to regenerate `app/globals.css`.
+then run `node blueprint/scripts/tokens-to-css.mjs` to regenerate `app/globals.css`.

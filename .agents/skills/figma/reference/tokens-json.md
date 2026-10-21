@@ -1,7 +1,7 @@
 # tokens.json
 
 `blueprint/design/tokens.json` is the single source of design tokens.
-`scripts/tokens-to-css.mjs` turns it into the generated block in
+`blueprint/scripts/tokens-to-css.mjs` turns it into the generated block in
 `app/globals.css`. Values in px are numbers; strings pass through unchanged
 (`"clamp(2.5rem, 1.6rem + 3.8vw, 4rem)"`).
 

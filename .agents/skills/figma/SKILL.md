@@ -39,17 +39,17 @@ Two readers exist. Use both when available:
   metadata, variable definitions, screenshots, or design context). Prefer it for
   understanding structure and for named variables and styles: its variable
   definitions work on every Figma plan. Record what it returned.
-- **`scripts/figma-extract.mjs`** (REST API, needs `FIGMA_TOKEN`). Always use it
+- **`blueprint/scripts/figma-extract.mjs`** (REST API, needs `FIGMA_TOKEN`). Always use it
   for the files other scripts depend on: renders, `tokens-raw.json`, node JSON,
   and `snapshot.json`.
 
 ```text
-node scripts/figma-extract.mjs check
-node scripts/figma-extract.mjs outline <url> --depth 2
-node scripts/figma-extract.mjs node <url>
-node scripts/figma-extract.mjs tokens <frame-url> [<frame-url> ...]
-node scripts/figma-extract.mjs images <url> --ids 1:2 --file blueprint/reference/page-home-1440.png
-node scripts/figma-extract.mjs snapshot <frame-url> [...] --out blueprint/design/snapshot.json
+node blueprint/scripts/figma-extract.mjs check
+node blueprint/scripts/figma-extract.mjs outline <url> --depth 2
+node blueprint/scripts/figma-extract.mjs node <url>
+node blueprint/scripts/figma-extract.mjs tokens <frame-url> [<frame-url> ...]
+node blueprint/scripts/figma-extract.mjs images <url> --ids 1:2 --file blueprint/reference/page-home-1440.png
+node blueprint/scripts/figma-extract.mjs snapshot <frame-url> [...] --out blueprint/design/snapshot.json
 ```
 
 If `check` fails, stop and give the token setup from `AGENTS.md` Required tools.

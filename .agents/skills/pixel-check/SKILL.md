@@ -22,7 +22,7 @@ a build step, and `/fix` fixes them afterwards. It never edits app code,
 
 - `blueprint/design/map.json` maps the page's sections and their `data-el`
   elements (written by `/figma` and `/section`).
-- `node scripts/figma-extract.mjs check` passes.
+- `node blueprint/scripts/figma-extract.mjs check` passes.
 - Playwright and Chromium are installed. If not, give the commands from
   `AGENTS.md` Required tools and stop. Never pass a check from reading code.
 - The URL loads. For a local URL that refuses connections, ask the user to start
@@ -31,7 +31,7 @@ a build step, and `/fix` fixes them afterwards. It never edits app code,
 ## Run
 
 ```text
-node scripts/pixel-check.mjs <url> [--section a,b] [--widths 375,1440]
+node blueprint/scripts/pixel-check.mjs <url> [--section a,b] [--widths 375,1440]
 ```
 
 For each width in `map.json` the script sets the viewport to the frame width,
@@ -76,7 +76,7 @@ the component.
 ## Gate rules
 
 - `/complete` accepts only a run against the local app, with every designed
-  width, whose `sourceHash` equals `node scripts/pixel-check.mjs fingerprint`
+  width, whose `sourceHash` equals `node blueprint/scripts/pixel-check.mjs fingerprint`
   now. Any later product change makes it stale. Live-site runs are useful
   evidence after a deploy, never the completion gate.
 - Inside an active spec, a full pass is the evidence for a visual `Done when`.

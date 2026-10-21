@@ -2,7 +2,7 @@
 
 `blueprint/design/map.json` links the code to Figma. `/figma` writes pages and
 sections; `/section` and `/collection` add components and elements.
-`scripts/pixel-check.mjs` reads it to know which Figma node to compare with each
+`blueprint/scripts/pixel-check.mjs` reads it to know which Figma node to compare with each
 `data-section` and `data-el` at each width.
 
 ```json

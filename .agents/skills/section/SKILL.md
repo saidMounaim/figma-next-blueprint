@@ -23,7 +23,7 @@ section is not mapped yet, outline the parent frames to find them and add it.
 - The site foundation exists (`components/sections/registry.ts`,
   `components/PageRenderer.tsx`, tokens block in `globals.css`). If not, run
   `/next-app` first.
-- `node scripts/figma-extract.mjs check` passes.
+- `node blueprint/scripts/figma-extract.mjs check` passes.
 
 ## Step 1 - read the design
 
@@ -32,14 +32,14 @@ For the section node at every designed width:
 1. Make sure the render exists in `blueprint/reference/section-<type>-<width>.png`
    (render it with `figma-extract.mjs images ... --scale 1 --file ...` if not),
    then view it.
-2. `node scripts/figma-extract.mjs node <url>` and read the saved JSON:
+2. `node blueprint/scripts/figma-extract.mjs node <url>` and read the saved JSON:
    structure, text, `box` sizes and positions, auto-layout `gap` and `padding`,
    `font`, `fills`, `radius`, `effects`, and image fills (ratio = `w / h`). Use
    the Figma Dev Mode MCP design context too when available.
 3. Map every value to a token from `blueprint/design/tokens.json`
    (`../figma/reference/tokens-json.md` lists the utilities). A value
    with no token is either a missing shared token (add it to `tokens.json`,
-   rerun `node scripts/tokens-to-css.mjs`, and note it in the step) or a
+   rerun `node blueprint/scripts/tokens-to-css.mjs`, and note it in the step) or a
    genuinely one-off value (add a named token anyway; never an arbitrary class).
 
 Check `components/sections/` first. An existing section with the same structure
@@ -93,7 +93,7 @@ Register it in `registry.ts`. Add the section and its `data-el` names to
 
 1. Run the Verify command from `AGENTS.md` (or typecheck and build).
 2. Ask the user to start the dev server if it is not running.
-3. Run `node scripts/pixel-check.mjs <page-url> --section <type>`. Repair rows
+3. Run `node blueprint/scripts/pixel-check.mjs <page-url> --section <type>`. Repair rows
    above tolerance and rerun. Stop after three rounds and report what still
    differs with the report path.
 4. Confirm no console errors or hydration warnings on the page.

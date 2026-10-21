@@ -123,7 +123,7 @@ explicit yes for that exact command in the current chat.
 | TypeScript strict | `"strict": true` in `tsconfig.json` | Offer the one-line change. |
 | Tailwind CSS v4 | `tailwindcss` 4.x and `@import "tailwindcss"` in `globals.css` | Point to the official Next.js install steps; never migrate a v3 config silently. |
 | shadcn/ui | `components.json` and `cn()` in `lib/utils.ts` | Offer `npx shadcn@latest init` with its defaults; `/next-app` replaces its colors with Figma tokens. |
-| Figma token | `node scripts/figma-extract.mjs check` | The user creates a personal access token (figma.com > Settings > Security > Personal access tokens, file content read; add file variables read for Figma Variables on Enterprise) and adds `FIGMA_TOKEN=...` to `.env` themselves. Never ask for it in chat. |
+| Figma token | `node blueprint/scripts/figma-extract.mjs check` | The user creates a personal access token (figma.com > Settings > Security > Personal access tokens, file content read; add file variables read for Figma Variables on Enterprise) and adds `FIGMA_TOKEN=...` to `.env` themselves. Never ask for it in chat. |
 | `.env` ignored | `git check-ignore -q .env` | Add `.env*` to `.gitignore` before the token is created. |
 | Figma Dev Mode MCP | the session exposes Figma MCP tools | Optional. Skills prefer it for reading designs; the token is still required for the scripts. |
 | Playwright | `playwright` in devDependencies | Offer `npm i -D playwright`, then `npx playwright install chromium`. |
@@ -332,13 +332,6 @@ Recommend option 1 by default. If the user chooses option 2:
   .claude/
   blueprint/
   CLAUDE.md
-  scripts/figma-extract.mjs
-  scripts/tokens-to-css.mjs
-  scripts/pixel-check.mjs
-  scripts/seo.mjs
-  scripts/a11y.mjs
-  scripts/perf.mjs
-  scripts/lib/
   ```
 
 - Keep `AGENTS.md` tracked. It remains the lightweight public project guide for

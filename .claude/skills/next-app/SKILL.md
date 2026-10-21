@@ -49,13 +49,13 @@ Stop and name the missing item when any is absent:
 Templates for every file are in `reference/app-files.md`. Each step ends with
 `npm run build` (or the Verify command) passing.
 
-1. **Tokens and fonts** - run `node scripts/tokens-to-css.mjs` to add the
+1. **Tokens and fonts** - run `node blueprint/scripts/tokens-to-css.mjs` to add the
    generated block to `app/globals.css`; load every `tokens.json` font with
    `next/font` using its `variable`; root layout with `<html lang>` and the font
    variables, body classes `font-<body> text-<body> bg-background
    text-foreground antialiased`, and `<main id="main">`. Remove the
    create-next-app demo page content and its assets.
-   *Done when:* `node scripts/tokens-to-css.mjs --check` passes, the build
+   *Done when:* `node blueprint/scripts/tokens-to-css.mjs --check` passes, the build
    passes, and the browser shows the Figma fonts and colors.
 2. **Payload install** (content source `payload` only) - with explicit approval
    for the exact command, install Payload into the app with the official
@@ -93,7 +93,7 @@ Templates for every file are in `reference/app-files.md`. Each step ends with
    `metadataBase`, `title.template`, default description, Open Graph, and
    Twitter card; `app/sitemap.ts` listing every page from the content layer;
    `app/robots.ts` pointing at the sitemap; `app/not-found.tsx` in the site
-   design. *Done when:* `node scripts/seo.mjs site http://localhost:3000` has no
+   design. *Done when:* `node blueprint/scripts/seo.mjs site http://localhost:3000` has no
    errors and `seo.mjs check` on `/` reports no errors except the missing `h1`
    (expected until the first page feature).
 

@@ -147,7 +147,7 @@ Before logging or committing, run a short safety pass and report blockers only:
   passing `/pixel-check` for every page or section that reference lists: the
   newest matching `blueprint/reports/pixel/<date>/<run>/summary.json` has
   `verdict: "pass"` at every designed width, and its `sourceHash` equals the
-  output of `node scripts/pixel-check.mjs fingerprint` now. Missing, failing, or
+  output of `node blueprint/scripts/pixel-check.mjs fingerprint` now. Missing, failing, or
   stale evidence blocks completion. The only bypass is the user's explicit
   waiver in the current chat for named sections and widths, with their reason,
   recorded under `## Pixel-check waiver` in the spec before any independent

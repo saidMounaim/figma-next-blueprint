@@ -9,22 +9,7 @@ import { resolve } from "node:path";
 export const REPORTS = "blueprint/reports";
 
 // Paths that never change what the site renders. Edits here must not make a pixel pass stale.
-const WORKFLOW_PATHS = [
-  "blueprint/",
-  ".claude/",
-  ".agents/",
-  "tools/",
-  "scripts/lib/",
-  "scripts/figma-extract.mjs",
-  "scripts/tokens-to-css.mjs",
-  "scripts/pixel-check.mjs",
-  "scripts/seo.mjs",
-  "scripts/a11y.mjs",
-  "scripts/perf.mjs",
-  "AGENTS.md",
-  "CLAUDE.md",
-  "test-results/",
-];
+const WORKFLOW_PATHS = ["blueprint/", ".claude/", ".agents/", "AGENTS.md", "CLAUDE.md", "test-results/"];
 
 export function stamp(date = new Date()) {
   const pad = (n) => String(n).padStart(2, "0");

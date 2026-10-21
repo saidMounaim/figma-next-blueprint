@@ -26,7 +26,7 @@ project. Network access is needed the first time `npx` fetches it.
 ## Run
 
 ```text
-node scripts/perf.mjs <url> [--form mobile,desktop]
+node blueprint/scripts/perf.mjs <url> [--form mobile,desktop]
 ```
 
 It writes the Lighthouse JSON and `summary.json` to

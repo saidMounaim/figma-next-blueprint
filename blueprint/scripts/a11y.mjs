@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { axeSource, launch, openPage } from "./lib/browser.mjs";
 import { REPORTS, parseFlags, slugFromUrl, stamp, writeJson } from "./lib/report.mjs";
 
-const USAGE = `Usage: node scripts/a11y.mjs <url> [--widths 375,768,1440] [--tabs 80] [--out dir]
+const USAGE = `Usage: node blueprint/scripts/a11y.mjs <url> [--widths 375,768,1440] [--tabs 80] [--out dir]
 
 Runs axe-core (WCAG 2.2 A/AA plus best practices) at each width, then a keyboard pass at the
 smallest and largest width: tab order, visible focus, focus traps, and expand/collapse controls.

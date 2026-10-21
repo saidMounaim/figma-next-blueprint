@@ -10,7 +10,7 @@ import { REPORTS, isLocal, parseFlags, slugFromUrl, stamp, writeJson } from "./l
 
 const LIGHTHOUSE = "lighthouse@12.8.2";
 
-const USAGE = `Usage: node scripts/perf.mjs <url> [--form mobile,desktop] [--lighthouse ${LIGHTHOUSE}] [--out dir]
+const USAGE = `Usage: node blueprint/scripts/perf.mjs <url> [--form mobile,desktop] [--lighthouse ${LIGHTHOUSE}] [--out dir]
 
 Runs Lighthouse (performance, accessibility, best practices, SEO) per form factor and prints
 Core Web Vitals, failing audits with their resources, and JavaScript weight. Measure a
