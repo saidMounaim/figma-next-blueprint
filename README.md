@@ -33,14 +33,11 @@ cd my-site
 npx shadcn@latest init
 npm i -D playwright axe-core
 npx playwright install chromium
-
-git remote add blueprint https://github.com/saidMounaim/figma-next-blueprint.git
-git fetch blueprint
-git checkout blueprint/main -- AGENTS.md CLAUDE.md .claude .agents blueprint
+npx create-figma-next-blueprint@latest
 ```
 
-The last three commands put the kit straight into the root of your site, next to
-`app/` and `package.json`; nothing is nested. Add
+The last command adds the kit to the root of your site, next to `app/` and
+`package.json`; nothing is nested and nothing is overwritten. Add
 `FIGMA_TOKEN=figd_your_token_here` to `.env` in your editor (shell redirects can
 save it in the wrong encoding on Windows). Then open `my-site` in Claude Code
 (or Codex) and run `/onboard`, then
@@ -130,7 +127,8 @@ CSS.
 
 ## What's in this repository
 
-Everything except `README.md` and `LICENSE` goes into the root of your site:
+Everything except `README.md`, `LICENSE`, `package.json`, and `bin/` (the npx
+command) goes into the root of your site:
 
 | Path | Contents |
 | --- | --- |
@@ -175,20 +173,26 @@ npx shadcn@latest init
 From the `my-site` folder:
 
 ```bash
+npx create-figma-next-blueprint@latest
+```
+
+It copies `AGENTS.md`, `CLAUDE.md`, `.claude/`, `.agents/`, and `blueprint/`
+into the root of your site, next to `app/`. It stops without copying anything
+if the folder is not a Next.js project or if one of those files already exists.
+The `AGENTS.md` that `create-next-app` writes is the one exception: it only
+holds a Next.js managed block, which the kit's `AGENTS.md` already contains
+(`next dev` keeps it up to date).
+
+Without npm, the same files come from Git:
+
+```bash
 git remote add blueprint https://github.com/saidMounaim/figma-next-blueprint.git
 git fetch blueprint
 git checkout blueprint/main -- AGENTS.md CLAUDE.md .claude .agents blueprint
 ```
 
-This copies the kit's files into the root of your site, next to `app/`. Do not
-`git clone` the kit inside your site: that creates a nested repository that
-Tailwind and ESLint would scan.
-
-- The kit's `AGENTS.md` replaces the one `create-next-app` wrote. It already
-  contains the Next.js managed block, which `next dev` keeps up to date.
-- Using only Claude Code? Leave `.agents` out of the last command. Using only
-  Codex or Copilot? Leave out `CLAUDE.md` and `.claude`.
-- The `blueprint` remote stays in your project so you can update later.
+Do not `git clone` the kit inside your site: that creates a nested repository
+that Tailwind and ESLint would scan.
 
 ### 3. Add your Figma token
 
@@ -384,16 +388,14 @@ deploy without your approval.
 From the root of your site:
 
 ```bash
-git fetch blueprint
-git checkout blueprint/main -- .claude .agents blueprint/scripts
-git diff blueprint/main -- AGENTS.md CLAUDE.md
+npx create-figma-next-blueprint@latest --update
 ```
 
-Then run `/doctor`. The second command updates the skills and helper scripts.
-Never check out all of `blueprint/` again: it holds your plans, coding
-standards, design map, tokens, and history. `AGENTS.md` and `CLAUDE.md` hold
-your project edits (for example the Commands section), so the third command
-only shows what changed for you to merge by hand.
+Then run `/doctor`. It replaces the kit's skills in `.claude/skills/` and
+`.agents/skills/` and the helper scripts in `blueprint/scripts/`. Skills you
+added yourself stay. Your plans, coding standards, design map, tokens, history,
+`AGENTS.md`, and `CLAUDE.md` are never touched; compare your `AGENTS.md` with
+the [latest one](AGENTS.md) to pick up workflow changes.
 
 ## Tested with
 
@@ -419,8 +421,9 @@ only shows what changed for you to merge by hand.
 | A token utility does nothing | Run `node blueprint/scripts/tokens-to-css.mjs --check`; never edit the generated block by hand |
 | `color.primary collides with a shadcn variable` | Name Figma colors by role (`brand`) and map them in `tokens.json` `shadcn` |
 | Skills not found | Open the AI tool in the app root, where `.claude/` or `.agents/` lives |
-| A `figma-next-blueprint/` folder inside your site | The kit was cloned instead of checked out; delete that folder and use the `git checkout blueprint/main -- ...` command from Part 1 |
-| `fatal: not a git repository` during setup | Run `git init` in the site first (create-next-app usually does this) |
+| A `figma-next-blueprint/` folder inside your site | The kit was cloned instead of installed; delete that folder and run `npx create-figma-next-blueprint@latest` |
+| `The kit is already installed here` | Use `npx create-figma-next-blueprint@latest --update` |
+| `Nothing was copied. These files already exist` | Move the listed files aside (or merge them later) and run the command again |
 | Something else looks wrong | Run `/doctor` for a health check and repair order |
 
 ## Maintaining the kit
@@ -433,6 +436,18 @@ The two trees differ only by the Claude Code line
 rm -rf .agents/skills && cp -r .claude/skills .agents/skills
 find .agents/skills -name SKILL.md -exec sed -i '/^disable-model-invocation: true$/d' {} +
 ```
+
+To publish a new version of the npm package (`create-figma-next-blueprint`),
+bump `version` in `package.json`, check the contents, then publish:
+
+```bash
+npm pack --dry-run
+npm publish
+```
+
+The package ships only `bin/create.mjs` and the files it copies. npm never
+publishes `.gitignore` files, so `bin/create.mjs` writes
+`blueprint/.state/.gitignore` itself.
 
 The workflow skills stay close to AI Blueprint so upstream updates merge with
 small diffs: Figma and Next.js rules are short insertions, and longer ones live

@@ -1,0 +1,38 @@
+{
+  "name": "create-figma-next-blueprint",
+  "version": "0.1.0",
+  "description": "Add the figma-next-blueprint AI skills to a Next.js project: Figma URL to pixel-perfect Next.js with Tailwind, shadcn/ui, and the AI Blueprint workflow.",
+  "license": "MIT",
+  "author": "Said Mounaim",
+  "type": "module",
+  "bin": {
+    "create-figma-next-blueprint": "bin/create.mjs"
+  },
+  "files": [
+    "bin/",
+    "AGENTS.md",
+    "CLAUDE.md",
+    ".claude/",
+    ".agents/",
+    "blueprint/"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saidMounaim/figma-next-blueprint.git"
+  },
+  "homepage": "https://github.com/saidMounaim/figma-next-blueprint#readme",
+  "bugs": "https://github.com/saidMounaim/figma-next-blueprint/issues",
+  "keywords": [
+    "figma",
+    "nextjs",
+    "tailwindcss",
+    "shadcn",
+    "claude-code",
+    "codex",
+    "ai-blueprint",
+    "pixel-perfect"
+  ]
+}

@@ -248,10 +248,10 @@ steps, in order. Keep it short and practical.
 
 Choose the repair order in this priority:
 
-- Required Blueprint files missing -> restore them from the kit in the project
-  root: `git fetch blueprint` then
-  `git checkout blueprint/main -- <missing paths>` (add the remote first with
-  `git remote add blueprint https://github.com/saidMounaim/figma-next-blueprint.git`).
+- Required Blueprint files missing -> missing skills or scripts come back with
+  `npx create-figma-next-blueprint@latest --update`; a missing plan or context
+  file comes from the kit repository on GitHub. Never reinstall over existing
+  plans.
 - Invalid `blueprint/config.json` -> fix the named key or value, then rerun
   `/doctor`. Do not mutate project work while configuration is ambiguous.
 - No git repo -> initialize git before using the build loop.
