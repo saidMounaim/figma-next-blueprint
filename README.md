@@ -116,6 +116,5 @@ Your plans, design map, and project files are never touched.
 ## 🙏 Credits
 
 Built on [AI Blueprint](https://github.com/aiblueprinthq/ai-blueprint) by Brad Traversy.
-Sibling project: [figma-wp-blueprint](https://github.com/saidMounaim/figma-wp-blueprint) for WordPress.
 
 Released under the [MIT License](LICENSE).
